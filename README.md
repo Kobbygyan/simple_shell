@@ -1,1 +1,1 @@
-This is a simplr shell project done by @Kobbygyan & @daysthegreat
+This is a simple shell project done by @Kobbygyan & @daysthegreat
