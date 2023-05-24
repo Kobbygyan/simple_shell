@@ -180,6 +180,9 @@ int _myhelp(struct info_t *);
 /* toem_builtin1.c */
 int _myhistory(info_t *);
 int _myalias(info_t *);
+int unset_alias(struct info *, char *);
+int set_alias(struct info *info, char *str);
+int print_alias(list_t *node);
 
 /*toem_getline.c */
 ssize_t get_input(info_t *);
