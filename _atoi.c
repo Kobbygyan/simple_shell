@@ -6,7 +6,7 @@
  *
  * Return: 1 if the shell is in interactive mode, 0 otherwise.
  */
-int interactive(struct info *info);
+int interactive(info *info);
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
@@ -18,7 +18,7 @@ int interactive(struct info *info);
  *
  * Return: 1 if the character is a delimiter, 0 otherwise.
  */
-int is_delim(char c, const char *delim);
+int is_delim(char c, char *delim);
 {
 	while (*delim)
 	{
