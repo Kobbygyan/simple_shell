@@ -6,7 +6,7 @@
  *
  * Return: 1 if the shell is in interactive mode, 0 otherwise.
  */
-int interactive(info *info);
+int interactive(info_t *info)
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
@@ -18,7 +18,7 @@ int interactive(info *info);
  *
  * Return: 1 if the character is a delimiter, 0 otherwise.
  */
-int is_delim(char c, char *delim);
+int is_delim(char c, char *delim)
 {
 	while (*delim)
 	{
@@ -36,7 +36,7 @@ int is_delim(char c, char *delim);
  *
  * Return: 1 if the character is alphabetic, 0 otherwise.
  */
-int _isalpha(char c);
+int _isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 	{
@@ -53,7 +53,7 @@ int _isalpha(char c);
  *
  * Return: 0 if there are no numbers in the string, converted number otherwise.
  */
-int _atoi(char *s);
+int _atoi(char *s)
 {
 	int i, sign = 1, flag = 0, output;
 	unsigned int result = 0;
