@@ -8,7 +8,7 @@
  *
  * Return: Always 0.
  */
-int _myhistory(struct info *info);
+int _myhistory(info_t *info)
 {
 	print_list(info->history);
 	return (0);
@@ -21,7 +21,7 @@ int _myhistory(struct info *info);
  *
  * Return: Always 0 on success, 1 on error.
  */
-int unset_alias(struct info *info, char *str);
+int unset_alias(info_t *info, char *str)
 {
 	char *p, c;
 	int ret;
@@ -44,7 +44,7 @@ int unset_alias(struct info *info, char *str);
  *
  * Return: 1 if successful, 0 otherwise
  */
-int set_alias(struct info *info, char *str);
+int set_alias(info_t *info, char *str)
 {
 	char *p;
 
