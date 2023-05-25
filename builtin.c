@@ -7,7 +7,8 @@
  *
  * Return: Exits with a given exit status (0) if info.argv[0] != "exit".
  */
-int _myexit(struct info *info);
+int _myexit(info_t *info)
+
 {
 	int exitcheck;
 
@@ -36,7 +37,8 @@ int _myexit(struct info *info);
  *
  * Return: Always 0.
  */
-int _mycd(struct info *info);
+int _mycd(info_t *info)
+
 {
 	char *s, *dir, buffer[1024];
 	int chdir_ret;
@@ -88,7 +90,8 @@ int _mycd(struct info *info);
  *
  * Return: Always 0.
  */
-int _myhelp(struct info *info);
+int _myhelp(info_t *info)
+
 {
 	char **arg_array;
 
