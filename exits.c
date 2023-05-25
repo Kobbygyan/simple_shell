@@ -66,7 +66,7 @@ char *_strncat(char *dest, char *src, int n)
  *
  * Return: Pointer to the first occurrence of character, or NULL if not found
  */
-char *strchr(char *s, int c)
+char *_strchr(char *s, char c)
 {
 	do {
 		if (*s == c)
