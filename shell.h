@@ -13,19 +13,19 @@
 #include <errno.h>
 
 /* for read/write buffers */
-#define READ_BUFF_SIZE 1024
-#define WRITE_BUFF_SIZE 1024
-#define BUFF_FLUSH -1
+#define READ_BUF_SIZE 1024
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH -1
 
 /* for command chaining */
-#define CMMD_NORM	0
-#define CMMD_OR		1
-#define CMMD_AND		2
-#define CMMD_CHAIN	3
+#define CMD_NORM	0
+#define CMD_OR		1
+#define CMD_AND		2
+#define CMD_CHAIN	3
 
 /* for convert_number() */
-#define CONV_LOWERCASE	1
-#define CONV_UNSIGNED	2
+#define CONVERT_LOWERCASE	1
+#define CONVERT_UNSIGNED	2
 
 /* 1 if using system getline() */
 #define USE_GETLINE 0
@@ -38,7 +38,7 @@ extern char **environ;
 
 
 /**
- * struct liststr - structure for a singly linked list
+ * struct liststr - singly linked list
  * @num: the number field
  * @str: a string
  * @next: points to the next node
@@ -66,34 +66,34 @@ typedef struct liststr
  * @history: the history node
  * @alias: the alias node
  * @env_changed: on if environ was changed
- * @status: the return status of the last executed command
- * @cmd_buf: address of pointer to cmmd_buff, on if chaining
- * @cmd_buf_type: CMMD_type ||, &&, ;
- * @readfd: the fil_des from which to read line input
+ * @status: the return status of the last exec'd command
+ * @cmd_buf: address of pointer to cmd_buf, on if chaining
+ * @cmd_buf_type: CMD_type ||, &&, ;
+ * @readfd: the fd from which to read line input
  * @histcount: the history line number count
  */
 typedef struct passinfo
 {
-	char* arg;
-	char** argv;
-	char* path;
+	char *arg;
+	char **argv;
+	char *path;
 	int argc;
-	int line_count;
+	unsigned int line_count;
 	int err_num;
 	int linecount_flag;
-	char* fname;
-	struct liststr* env;
-	char** environ;
-	struct history_node* history;
-	struct alias_node* alias;
+	char *fname;
+	list_t *env;
+	list_t *history;
+	list_t *alias;
+	char **environ;
 	int env_changed;
 	int status;
-	
-	char** cmd_buf; /* pointer to cmd ; chain buffer, for memory mangement */
+
+	char **cmd_buf; /* pointer to cmd ; chain buffer, for memory mangement */
 	int cmd_buf_type; /* CMD_type ||, &&, ; */
 	int readfd;
 	int histcount;
-} passinfo_t;
+} info_t;
 
 #define INFO_INIT \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
@@ -101,7 +101,7 @@ typedef struct passinfo
 
 /**
  * struct builtin - contains a builtin string and related function
- * @type: the builtin cmd flag
+ * @type: the builtin command flag
  * @func: the function
  */
 typedef struct builtin
@@ -109,6 +109,7 @@ typedef struct builtin
 	char *type;
 	int (*func)(info_t *);
 } builtin_table;
+
 
 /* toem_shloop.c */
 int hsh(info_t *, char **);
@@ -162,7 +163,7 @@ int bfree(void **);
 /* toem_atoi.c */
 int interactive(info_t *);
 int is_delim(char, char *);
-int _isalpha(char);
+int _isalpha(int);
 int _atoi(char *);
 
 /* toem_errors1.c */
@@ -173,16 +174,13 @@ char *convert_number(long int, int, int);
 void remove_comments(char *);
 
 /* toem_builtin.c */
-int _myexit(struct info_t *);
-int _mycd(struct info_t *);
-int _myhelp(struct info_t *);
+int _myexit(info_t *);
+int _mycd(info_t *);
+int _myhelp(info_t *);
 
 /* toem_builtin1.c */
 int _myhistory(info_t *);
 int _myalias(info_t *);
-int unset_alias(struct info *, char *);
-int set_alias(struct info *info, char *str);
-int print_alias(list_t *node);
 
 /*toem_getline.c */
 ssize_t get_input(info_t *);
@@ -235,3 +233,4 @@ int replace_vars(info_t *);
 int replace_string(char **, char *);
 
 #endif
+
