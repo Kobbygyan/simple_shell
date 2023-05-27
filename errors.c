@@ -30,16 +30,16 @@ void _eputs(char *str)
 int _eputchar(char c)
 {
 	static int index;
-	static char buf[WRITE_BUF_SIZE];
+	static char buffer[WRITE_BUFF_SIZE];
 
-	if (c == BUF_FLUSH || index >= WRITE_BUF_SIZE)
+	if (c == BUFF_FLUSH || index >= WRITE_BUFF_SIZE)
 	{
-		write(2, buf, index);
+		write(2, buffer, index);
 		index = 0;
 	}
 
-	if (c != BUF_FLUSH)
-		buf[index++] = c;
+	if (c != BUFF_FLUSH)
+		buffer[index++] = c;
 
 	return (1);
 }
@@ -55,15 +55,15 @@ int _eputchar(char c)
 int _putfd(char c, int fd)
 {
 	static int index;
-	static char buf[WRITE_BUF_SIZE];
+	static char buffer[WRITE_BUFF_SIZE];
 
-	if (c == BUF_FLUSH || index >= WRITE_BUF_SIZE)
+	if (c == BUFF_FLUSH || index >= WRITE_BUFF_SIZE)
 	{
-		write(fd, buf, index);
+		write(fd, buffer, index);
 		index = 0;
 	}
-	if (c != BUF_FLUSH)
-		buf[index++] = c;
+	if (c != BUFF_FLUSH)
+		buffer[index++] = c;
 	return (1);
 }
 
@@ -76,15 +76,15 @@ int _putfd(char c, int fd)
  */
 int _putsfd(char *str, int fd)
 {
-	int index = 0;
+	int count = 0;
 
 	if (!str)
 		return (0);
 
 	while (*str)
 	{
-		index += _putfd(*str++, fd);
+		count += _putfd(*str++, fd);
 	}
 
-	return (index);
+	return (count);
 }

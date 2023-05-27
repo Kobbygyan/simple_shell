@@ -17,18 +17,18 @@ int is_chain(info_t *info, char *buf, size_t *p)
 	{
 		buf[j] = '\0';
 		j++;
-		info->cmd_buf_type = CMD_OR;
+		info->cmmd_buff_type = CMMD_OR;
 	}
 	else if (buf[j] == '&' && buf[j + 1] == '&')
 	{
 		buf[j] = '\0';
 		j++;
-		info->cmd_buf_type = CMD_AND;
+		info->cmmd_buff_type = CMMD_AND;
 	}
 	else if (buf[j] == ';') /* Found end of this command */
 	{
 		buf[j] = '\0'; /* Replace semicolon with null terminator */
-		info->cmd_buf_type = CMD_CHAIN;
+		info->cmmd_buff_type = CMMD_CHAIN;
 	}
 	else
 		return (0);
@@ -52,7 +52,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 {
 	size_t j = *p;
 
-	if (info->cmd_buf_type == CMD_AND)
+	if (info->cmmd_buff_type == CMMD_AND)
 	{
 		if (info->status)
 		{
@@ -60,7 +60,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 			j = len;
 		}
 	}
-	if (info->cmd_buf_type == CMD_OR)
+	if (info->cmmd_buff_type == CMMD_OR)
 	{
 		if (!info->status)
 		{

@@ -14,15 +14,15 @@ int interactive(info_t *info)
 /**
  * is_delim - Checks if a character is a delimiter.
  * @c: The character to check.
- * @delim: The delimiter string.
+ * @delim: The string of delimiters.
  *
  * Return: 1 if the character is a delimiter, 0 otherwise.
  */
-int is_delim(char c, char *delim)
+int is_delim(char c, char *delimiters)
 {
-	while (*delim)
+	while (*delimiters)
 	{
-		if (*delim++ == c)
+		if (*delimiters++ == c)
 		{
 			return (1);
 		}
@@ -32,13 +32,13 @@ int is_delim(char c, char *delim)
 
 /**
  * _isalpha - Checks if a character is an alphabetic character.
- * @c: The character to check.
+ * @ch: The character to check.
  *
  * Return: 1 if the character is alphabetic, 0 otherwise.
  */
-int _isalpha(int c)
+int _isalpha(int ch)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
 	{
 		return (1);
 	}
@@ -53,22 +53,22 @@ int _isalpha(int c)
  *
  * Return: 0 if there are no numbers in the string, converted number otherwise.
  */
-int _atoi(char *s)
+int _atoi(char *str)
 {
-	int i, sign = 1, flag = 0, output;
+	int idx, sign = 1, flag = 0, output;
 	unsigned int result = 0;
 
-	for (i = 0; s[i] != '\0' && flag != 2; i++)
+	for (idx = 0; str[idx] != '\0' && flag != 2; idx++)
 	{
-		if (s[i] == '-')
+		if (str[idx] == '-')
 		{
 			sign *= -1;
 		}
-		if (s[i] >= '0' && s[i] <= '9')
+		if (str[idx] >= '0' && str[idx] <= '9')
 		{
 			flag = 1;
 			result *= 10;
-			result += (s[i] - '0');
+			result += (str[idx] - '0');
 		} else if (flag == 1)
 		{
 			flag = 2;

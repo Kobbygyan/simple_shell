@@ -9,7 +9,7 @@
 int _erratoi(char *s)
 {
 	int idx = 0;
-	unsigned long int res = 0;
+	unsigned long int result = 0;
 
 	if (*s == '+')
 		s++; /* TODO: why does this make main return 255? */
@@ -18,16 +18,16 @@ int _erratoi(char *s)
 	{
 		if (s[idx] >= '0' && s[idx] <= '9')
 		{
-			res *= 10;
-			res += (s[idx] - '0');
-			if (res > INT_MAX)
+			result *= 10;
+			result += (s[idx] - '0');
+			if (result > INT_MAX)
 				return (-1);
 		}
 		else
 			return (-1);
 	}
 
-	return (res);
+	return (result);
 }
 
 /**
@@ -37,65 +37,65 @@ int _erratoi(char *s)
  *
  * Return: None
  */
-void print_error(info_t *info, char *error_str)
+void print_error(info_t *info, char *estr)
 {
-	_eputs(info->fname);
+	_eputs(info->filename);
 	_eputs(": ");
-	print_d(info->line_count, STDERR_FILENO);
+	print_integer(info->line_count, STDERR_FILENO);
 	_eputs(": ");
 	_eputs(info->argv[0]);
 	_eputs(": ");
-	_eputs(error_str);
+	_eputs(estr);
 }
 
 /**
- * print_d - Prints an integer to a file descriptor
- * @input: The integer to print
+ * print_integer - Prints an integer to the specified file descriptor
+ * @input: The integer to be printed
  * @fd: The file descriptor to write to
  *
  * Return: The number of characters printed
  */
-int print_d(int input, int fd)
+int print_integer(int input, int fd)
 {
-	int (*output_char)(char) = _putchar;
+	int (*print_char)(char) = _putchar;
 	int i, count = 0;
-	unsigned int absolute_value, current;
+	unsigned int abs_val, current;
 
 	if (fd == STDERR_FILENO)
-		output_char = _eputchar;
+		print_char = _eputchar;
 
 	if (input < 0)
 	{
-		absolute_value = -input;
-		output_char('-');
+		abs_val = -input;
+		print_char('-');
 		count++;
 	}
 	else
-		absolute_value = input;
+		abs_val = input;
 
-	current = absolute_value;
+	current = abs_val;
 
 	for (i = 1000000000; i > 1; i /= 10)
 	{
-		if (absolute_value / i)
+		if (abs_val / i)
 		{
-			output_char('0' + current / i);
+			print_char('0' + current / i);
 			count++;
 		}
 		current %= i;
 	}
 
-	output_char('0' + current);
+	print_char('0' + current);
 	count++;
 
 	return (count);
 }
 
 /**
- * convert_number - Converts a number to a specified base and returns it as 
- *                  a string
- * @num: The number to convert
- * @base: The base to convert the number to
+ * convert_number - Converts a number to a string representation in 
+ *                  the specified base
+ * @num: The number to be converted
+ * @base: The base for conversion
  * @flags: Flags for conversion options
  *
  * Return: Pointer to the converted number string
@@ -136,15 +136,15 @@ char *convert_number(long int num, int base, int flags)
  *
  * Return: None
  */
-void remove_comments(char *buffer)
+void remove_comments(char *buf)
 {
 	int idx;
 
-	for (idx = 0; buffer[idx] != '\0'; idx++)
+	for (idx = 0; buf[idx] != '\0'; idx++)
 	{
-		if (buffer[idx] == '#' && (!idx || buffer[idx - 1] == ' '))
+		if (buf[idx] == '#' && (!idx || buf[idx - 1] == ' '))
 		{
-			buffer[idx] = '\0';
+			buf[idx] = '\0';
 			break;
 		}
 	}

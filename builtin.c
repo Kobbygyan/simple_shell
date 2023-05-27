@@ -10,12 +10,12 @@
 int _myexit(info_t *info)
 
 {
-	int exitcheck;
+	int exit_value;
 
 	if (info->argv[1]) /* If there is an exit argument */
 	{
-		exitcheck = _erratoi(info->argv[1]);
-		if (exitcheck == -1)
+		exit_value = _erratoi(info->argv[1]);
+		if (exit_value == -1)
 		{
 			info->status = 2;
 			print_error(info, "Illegal number: ");
@@ -40,32 +40,32 @@ int _myexit(info_t *info)
 int _mycd(info_t *info)
 
 {
-	char *s, *dir, buffer[1024];
+	char *current_dir, *new_dir, buffer[1024];
 	int chdir_ret;
 
-	s = getcwd(buffer, 1024);
-	if (!s)
+	current_dir = getcwd(buffer, 1024);
+	if (!current_dir)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
-		dir = _getenv(info, "HOME=");
-		if (!dir)
+		new_dir = _getenv(info, "HOME=");
+		if (!new_dir)
 			chdir_ret = /* TODO: what should this be? */
-				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+				chdir((new_dir = _getenv(info, "PWD=")) ? new_dir : "/");
 		else
-			chdir_ret = chdir(dir);
+			chdir_ret = chdir(new_dir);
 	} else if (_strcmp(info->argv[1], "-") == 0)
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
-			_puts(s);
+			_puts(current_dir);
 			_putchar('\n');
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD="));
 		_putchar('\n');
 		chdir_ret = /* TODO: what should this be? */
-			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+			chdir((new_dir = _getenv(info, "OLDPWD=")) ? new_dir : "/");
 	} else
 	{
 		chdir_ret = chdir(info->argv[1]);
@@ -93,11 +93,11 @@ int _mycd(info_t *info)
 int _myhelp(info_t *info)
 
 {
-	char **arg_array;
+	char **arguments;
 
-	arg_array = info->argv;
+	arguments = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); /* temp att_unused workaround */
+		_puts(*arguments); /* temp att_unused workaround */
 	return (0);
 }

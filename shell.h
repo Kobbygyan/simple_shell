@@ -13,15 +13,15 @@
 #include <errno.h>
 
 /* for read/write buffers */
-#define READ_BUF_SIZE 1024
-#define WRITE_BUF_SIZE 1024
-#define BUF_FLUSH -1
+#define READ_BUFF_SIZE 1024
+#define WRITE_BUFF_SIZE 1024
+#define BUFF_FLUSH -1
 
 /* for command chaining */
-#define CMD_NORM	0
-#define CMD_OR		1
-#define CMD_AND		2
-#define CMD_CHAIN	3
+#define CMMD_NORM	0
+#define CMMD_OR		1
+#define CMMD_AND		2
+#define CMMD_CHAIN	3
 
 /* for convert_number() */
 #define CONVERT_LOWERCASE	1
@@ -80,17 +80,17 @@ typedef struct passinfo
 	int argc;
 	unsigned int line_count;
 	int err_num;
-	int linecount_flag;
-	char *fname;
+	int lineCountFlag;
+	char *filename;
 	list_t *env;
 	list_t *history;
 	list_t *alias;
 	char **environ;
-	int env_changed;
+	int envChanged;
 	int status;
 
-	char **cmd_buf; /* pointer to cmd ; chain buffer, for memory mangement */
-	int cmd_buf_type; /* CMD_type ||, &&, ; */
+	char **cmmd_buff; /* pointer to cmd ; chain buffer, for memory mangement */
+	int cmmd_buff_type; /* CMD_type ||, &&, ; */
 	int readfd;
 	int histcount;
 } info_t;
@@ -169,7 +169,7 @@ int _atoi(char *);
 /* toem_errors1.c */
 int _erratoi(char *);
 void print_error(info_t *, char *);
-int print_d(int, int);
+int print_integer(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
 

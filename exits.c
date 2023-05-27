@@ -11,7 +11,7 @@
 char *_strncpy(char *dest, char *src, int n)
 {
 	int i, j;
-	char *s = dest;
+	char *result = dest;
 
 	i = 0;
 	while (src[i] != '\0' && i < n - 1)
@@ -28,7 +28,7 @@ char *_strncpy(char *dest, char *src, int n)
 			j++;
 		}
 	}
-	return (s);
+	return (result);
 }
 
 /**
@@ -42,12 +42,13 @@ char *_strncpy(char *dest, char *src, int n)
 char *_strncat(char *dest, char *src, int n)
 {
 	int i, j;
-	char *s = dest;
+	char *result = dest;
 
 	i = 0;
+	j = 0;
 	while (dest[i] != '\0')
 		i++;
-	j = 0;
+
 	while (src[j] != '\0' && j < n)
 	{
 		dest[i] = src[j];
@@ -56,7 +57,7 @@ char *_strncat(char *dest, char *src, int n)
 	}
 	if (j < n)
 		dest[i] = '\0';
-	return (s);
+	return (result);
 }
 
 /**
@@ -66,12 +67,12 @@ char *_strncat(char *dest, char *src, int n)
  *
  * Return: Pointer to the first occurrence of character, or NULL if not found
  */
-char *_strchr(char *s, char c)
+char *_strchr(char *str, char c)
 {
 	do {
-		if (*s == c)
-			return ((char *)s);
-	} while (*s++ != '\0');
+		if (*str == c)
+			return (str);
+	} while (*str++ != '\0');
 
 	return (NULL);
 }

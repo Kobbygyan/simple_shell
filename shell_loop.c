@@ -17,7 +17,7 @@ int hsh(info_t *info, char **av)
 		clear_info(info);
 		if (interactive(info))
 			_puts("$ ");
-		_eputchar(BUF_FLUSH);
+		_eputchar(BUFF_FLUSH);
 		read_status = get_input(info);
 		if (read_status != -1)
 		{
@@ -90,10 +90,10 @@ void find_cmd(info_t *info)
 
 	info->path = info->argv[0];
 
-	if (info->linecount_flag == 1)
+	if (info->lineCountFlag == 1)
 	{
 		info->line_count++;
-		info->linecount_flag = 0;
+		info->lineCountFlag = 0;
 	}
 
 	for (i = 0, k = 0; info->arg[i]; i++)
@@ -170,4 +170,3 @@ void fork_cmd(info_t *info)
 		}
 	}
 }
-
